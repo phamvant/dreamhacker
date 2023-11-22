@@ -47,7 +47,12 @@ export class UserService {
       },
     });
 
-    if (user) return user;
+    if (user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...res } = user;
+      return res;
+    }
+
     throw new NotFoundException();
   }
 }
