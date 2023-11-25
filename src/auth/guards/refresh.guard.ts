@@ -31,7 +31,6 @@ export class RefreshGuard implements CanActivate {
 
       request['user'] = payload;
     } catch (err) {
-      console.log(err);
       throw new UnauthorizedException();
     }
 
