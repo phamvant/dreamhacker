@@ -11,6 +11,9 @@ import { hash } from 'bcrypt';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  //////////////////////////////////
+  /// createUser
+  //////////////////////////////////
   async create(dto: CreateUserDto) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -29,6 +32,9 @@ export class UserService {
     return res;
   }
 
+  //////////////////////////////////
+  /// findByEmail
+  //////////////////////////////////
   async findByEmail(email: string) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -40,6 +46,9 @@ export class UserService {
     throw new NotFoundException();
   }
 
+  //////////////////////////////////
+  /// findById
+  //////////////////////////////////
   async findById(id: number) {
     const user = await this.prisma.user.findUnique({
       where: {
