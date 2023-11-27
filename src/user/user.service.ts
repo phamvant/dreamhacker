@@ -29,6 +29,8 @@ export class UserService {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...res } = newUser;
+
+    console.log('created', res);
     return res;
   }
 

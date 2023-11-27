@@ -16,6 +16,8 @@ export class AuthService {
   async refreshToken(user: any) {
     const payload = { email: user.email, sub: user.sub };
 
+    console.log('refresh payload', payload);
+
     return {
       backendTokens: {
         accessToken: await this.jwtService.signAsync(payload, {
@@ -32,7 +34,9 @@ export class AuthService {
   }
 
   async login(dto: LoginDto) {
+    console.log('login', dto);
     const user = await this.validateUser(dto);
+    console.log(user);
 
     const payload = {
       email: user.email,
