@@ -38,13 +38,18 @@ export class UserService {
   /// findByEmail
   //////////////////////////////////
   async findByEmail(email: string) {
+    console.log('find email', email);
     const user = await this.prisma.user.findUnique({
       where: {
         email: email,
       },
     });
 
+    console.log('user found', user);
+
     if (user) return user;
+
+    console.log('not found');
     throw new NotFoundException();
   }
 
@@ -61,6 +66,7 @@ export class UserService {
     if (user) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...res } = user;
+      console.log('found by id', res);
       return res;
     }
 
