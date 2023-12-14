@@ -1,4 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { UserService } from 'src/user/user.service';
@@ -11,6 +12,7 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   async refreshToken(user: any) {
@@ -22,11 +24,11 @@ export class AuthService {
       backendTokens: {
         accessToken: await this.jwtService.signAsync(payload, {
           expiresIn: '20s',
-          secret: process.env.jwtSecretKey,
+          secret: this.configService.get('jwt.access'),
         }),
         refreshTokenKey: await this.jwtService.signAsync(payload, {
           expiresIn: '7d',
-          secret: process.env.jwtRefreshTokenKey,
+          secret: this.configService.get('jwt.refresh'),
         }),
         expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
       },
@@ -50,11 +52,11 @@ export class AuthService {
       backendTokens: {
         accessToken: await this.jwtService.signAsync(payload, {
           expiresIn: '20s',
-          secret: process.env.jwtSecretKey,
+          secret: this.configService.get('jwt.access'),
         }),
         refreshTokenKey: await this.jwtService.signAsync(payload, {
           expiresIn: '7d',
-          secret: process.env.jwtRefreshTokenKey,
+          secret: this.configService.get('jwt.refresh'),
         }),
         expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
       },
